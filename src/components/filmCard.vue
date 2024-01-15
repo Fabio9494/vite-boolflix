@@ -1,13 +1,19 @@
 <script>
+import CountryFlag from 'vue-country-flag-next'
+
+
 export default {
     props: {
         film: Object,
+    },
+    components: {
+        CountryFlag
     },
     data() {
         return {
 
         }
-    }
+    },
 }
 </script>
 <template lang="">
@@ -15,7 +21,8 @@ export default {
         <div>
             <p class="text">Titolo: {{ film.title }}</p>
             <p class="text">Titolo originale: {{film.original_title}}</p>
-            <p class="text">Lingua: {{film.original_language}}</p>
+            <div class="center" v-if="film.original_language==='en'"><p class="text">Lingua:</p><country-flag  country='gb-eng' size='small'/></div>
+            <p v-else class="text">Lingua: <country-flag :country=film.original_language size='small'/></p>
             <p class="text">Voto: {{film.vote_average}}</p>
             
         </div>
@@ -42,6 +49,12 @@ export default {
         font-size: 15px;
         text-align: center;
         padding: 10px;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>

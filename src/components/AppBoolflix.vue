@@ -2,10 +2,9 @@
 import filmCard from './filmCard.vue'
 import { store } from './store'
 
-
 export default {
     components: {
-        filmCard
+        filmCard,
     },
     data() {
         return {
