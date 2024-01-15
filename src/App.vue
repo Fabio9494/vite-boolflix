@@ -1,22 +1,42 @@
 <script>
-import AppHeader from './components/AppHeader.vue';
-import AppMain from './components/AppMain.vue';
+import AppBoolflix from './components/AppBoolflix.vue';
 
 import axios from 'axios';
-import { store } from './store.js'
+import { store } from './components/store'
 
 export default {
   components: {
-    AppHeader,
-    AppMain,
-  }
+    AppBoolflix
+  },
+  data() {
+    return {
+      store
+    }
+  },
+  created() {
+    this.getFilm()
+  },
+  methods: {
+    getFilm() {
+      let api = store.endpointFilm
+
+      if (store.filmFilter !== '') {
+        api += `?api_key=${store.api_key}&query=${store.filmFilter}`
+        console.log(api);
+      }
+
+      axios.get(api).then((response) => {
+        store.filmList = response.data.results;
+      })
+      console.log(store.filmList)
+    },
+  },
 }
 </script>
 
 <template lang="">
   <div>
-    <AppHeader/>
-    <AppMain/>
+    <AppBoolflix @filter_film="getFilm"/>
   </div>
 </template>
 
