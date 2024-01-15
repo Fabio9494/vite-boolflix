@@ -1,6 +1,6 @@
 <script>
 import CountryFlag from 'vue-country-flag-next'
-
+import { store } from './store'
 
 export default {
     props: {
@@ -11,7 +11,7 @@ export default {
     },
     data() {
         return {
-
+            store
         }
     },
 }
@@ -19,6 +19,7 @@ export default {
 <template lang="">
     <div class="film">
         <div>
+            <img :src="store.poster+film.poster_path" alt="">
             <p class="text">Titolo: {{ film.title }}</p>
             <p class="text">Titolo originale: {{film.original_title}}</p>
             <div class="center" v-if="film.original_language==='en'"><p class="text">Lingua:</p><country-flag  country='gb-eng' size='small'/></div>
@@ -32,7 +33,6 @@ export default {
 <style lang="scss" scoped>
 .film {
     width: calc(100% / 3 - 40px);
-    height: 400px;
     padding: 10px;
     background-color: rgb(0, 0, 0);
     margin: 10px;
@@ -41,6 +41,8 @@ export default {
 
     img {
         width: 100%;
+        height: 700px;
+
     }
 
     .text {

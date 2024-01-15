@@ -7,4 +7,5 @@ export const store = reactive({
     filmList: [],
     serieTvList: [],
     search: '',
+    poster: 'https://image.tmdb.org/t/p/w342'
 })
