@@ -18,6 +18,7 @@ export default {
 }
 </script>
 <template lang="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <div class="serieTv">
         <div>
             <img :src="store.poster+serieTv.poster_path" alt="">
@@ -25,8 +26,11 @@ export default {
             <p class="text">Titolo originale: {{serieTv.original_name}}</p>
             <div class="center" v-if="serieTv.original_language==='en'"><p class="text">Lingua:</p><country-flag  country='gb-eng' size='small'/></div>
             <p v-else class="text">Lingua: <country-flag :country=serieTv.original_language size='small'/></p>
-            <p class="text">Voto: {{serieTv.vote_average}}</p> 
-            
+            <div class="vote">
+              <span class="text">Voto: </span>
+              <span v-for="star in Math.round(serieTv.vote_average / 2)"><i class="fa-solid fa-star"></i></span>
+              <span v-for="star in 5-Math.round(serieTv.vote_average / 2)"><i class="fa-regular fa-star"></i></span>
+            </div>  
         </div>
     </div>
 </template>
@@ -54,6 +58,12 @@ export default {
     }
 
     .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .vote {
         display: flex;
         justify-content: center;
         align-items: center;
