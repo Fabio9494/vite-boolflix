@@ -14,14 +14,15 @@ export default {
     }
   },
   created() {
-    this.getFilm()
+
+    this.search()
   },
   methods: {
     getFilm() {
       let api = store.endpointFilm
 
-      if (store.filmFilter !== '') {
-        api += `?api_key=${store.api_key}&query=${store.filmFilter}`
+      if (store.search !== '') {
+        api += `?api_key=${store.api_key}&query=${store.search}`
         console.log(api);
       }
 
@@ -30,13 +31,30 @@ export default {
       })
       console.log(store.filmList)
     },
+    getSerieTv() {
+      let apiTv = store.endpointSerieTv
+
+      if (store.search !== '') {
+        apiTv += `?api_key=${store.api_key}&query=${store.search}`
+        console.log(apiTv);
+      }
+
+      axios.get(apiTv).then((response) => {
+        store.serieTvList = response.data.results;
+      })
+    },
+    search() {
+      this.getFilm()
+      this.getSerieTv()
+    }
   },
+
 }
 </script>
 
 <template lang="">
   <div>
-    <AppBoolflix @filter_film="getFilm"/>
+    <AppBoolflix @searchFilmSerieTv="search"/>
   </div>
 </template>
 
